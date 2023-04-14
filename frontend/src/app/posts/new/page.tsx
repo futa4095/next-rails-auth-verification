@@ -11,7 +11,7 @@ export default function CreatePost() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     console.log('handleSubmit')
     e.preventDefault();
-    await fetch("http://localhost:3001/posts", {
+    await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
