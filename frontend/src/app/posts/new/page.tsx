@@ -2,21 +2,15 @@
 
 import { startTransition, useState } from "react";
 import { useRouter } from 'next/navigation';
+import { createPost } from "@/lib/Post";
 
 export default function CreatePost() {
-  console.log('create post')
   const router = useRouter();
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/api/posts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ title, body }),
-    });
+    await createPost({ title, body });
     router.push("/posts")
     // startTransition(() => router.refresh())
   }

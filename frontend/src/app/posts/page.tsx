@@ -1,14 +1,5 @@
+import { getPosts } from '@/lib/Post';
 import Link from 'next/link'
-
-async function getPosts() {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/api/posts", { cache: 'no-store' });
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
-}
 
 export default async function Posts() {
   const posts = await getPosts();
