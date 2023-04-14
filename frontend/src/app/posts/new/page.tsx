@@ -9,9 +9,8 @@ export default function CreatePost() {
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log('handleSubmit')
     e.preventDefault();
-    await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/posts", {
+    await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/api/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -19,7 +18,7 @@ export default function CreatePost() {
       body: JSON.stringify({ title, body }),
     });
     router.push("/posts")
-    startTransition(() => router.refresh())
+    // startTransition(() => router.refresh())
   }
 
   return (
