@@ -1,11 +1,15 @@
+'use client';
+
+import { useRouter } from "next/navigation";
+
 type Post = {
   id: number;
   title: string;
   body: string;
 };
 
-export default async function showPost({ params }: { params: { id:number} }) {
-  const getPost =async (id:number) => {
+export default async function ShowPost({ params }: { params: { id: number } }) {
+  const getPost = async (id: number) => {
     const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + `/api/posts/${id}`);
 
     if (!res.ok) {
@@ -14,6 +18,21 @@ export default async function showPost({ params }: { params: { id:number} }) {
 
     const data = await res.json();
     return data as Post;
+  }
+
+  const router = useRouter();
+  const deletePost = async (id: number) => {
+    const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + `/api/posts/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to delete post");
+    }
+  }
+  const handleDelete = async () => {
+    await deletePost(params.id);
+    router.push("/posts")
   }
 
   const post = await getPost(params.id);
@@ -26,6 +45,7 @@ export default async function showPost({ params }: { params: { id:number} }) {
       </div>
       <p>{post.title}</p>
       <p>{post.body}</p>
+      <button onClick={handleDelete}>delete</button>
     </main>
   )
 }
