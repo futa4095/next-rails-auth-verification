@@ -1,5 +1,5 @@
 import './globals.css'
-import Header from './header';
+import Header from './Header';
 
 export const metadata = {
   title: 'Create Next App',
