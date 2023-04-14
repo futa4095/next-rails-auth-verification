@@ -1,16 +1,14 @@
 'use client';
 
-import { deletePost, getPost } from "@/lib/Post";
+import { deletePost, getPost, Post } from "@/lib/Post";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-type Post = {
-  id: number;
-  title: string;
-  body: string;
-};
-
-export default async function ShowPost({ params }: { params: { id: number } }) {
+export default async function ShowPost({
+  params,
+}: {
+  params: { id: number };
+}) {
   const router = useRouter();
   const handleDelete = async () => {
     await deletePost(params.id);

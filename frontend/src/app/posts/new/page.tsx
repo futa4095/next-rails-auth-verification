@@ -10,9 +10,9 @@ export default function CreatePost() {
   const [body, setBody] = useState("")
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createPost({ title, body });
+    await createPost({ post: { title, body } });
     router.push("/posts")
-    // startTransition(() => router.refresh())
+    startTransition(() => router.refresh())
   }
 
   return (

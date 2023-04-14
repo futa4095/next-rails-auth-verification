@@ -1,6 +1,12 @@
 import { notFound } from "next/navigation";
 
-export async function getPosts() {
+export type Post = {
+  id?: number;
+  title: string;
+  body: string;
+};
+
+export async function getPosts(): Promise<Post[]> {
   const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/api/posts", { cache: 'no-store' });
 
   if (!res.ok) {
@@ -10,7 +16,7 @@ export async function getPosts() {
   return res.json();
 }
 
-export async function getPost(id: number) {
+export async function getPost(id: number): Promise<Post>{
   const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + `/api/posts/${id}`);
 
   if (res.status === 404) {
@@ -25,7 +31,7 @@ export async function getPost(id: number) {
   return data;
 }
 
-export async function createPost(post) {
+export async function createPost({ post }: { post: Post; }): Promise<void> {
   const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/api/posts", {
     method: "POST",
     headers: {
@@ -39,8 +45,7 @@ export async function createPost(post) {
   }
 }
 
-export async function updatePost(post) {
-  console.info(post)
+export async function updatePost(post: Post) {
   const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + `/api/posts/${post.id}`, {
     method: "PATCH",
     headers: {
