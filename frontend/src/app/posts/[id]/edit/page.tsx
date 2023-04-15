@@ -2,10 +2,8 @@ import { getPost } from "@/lib/Post";
 import EditForm from "./edit-form";
 
 export default async function EditPost({ params }: { params: { id: number } }) {
-  console.log('edit post')
   const post = await getPost(params.id);
 
-  console.log('edit post 2')
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">

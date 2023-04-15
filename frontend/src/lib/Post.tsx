@@ -20,15 +20,12 @@ export async function getPost(id: number): Promise<Post> {
   const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + `/api/posts/${id}`, { cache: 'no-store' });
 
   if (res.status === 404) {
-    console.log(404)
     notFound();
   }
 
   if (!res.ok) {
-    console.log('Error1!!!!')
     throw new Error("Failed to fetch post");
   }
-  console.log('res.ok')
   return res.json();
 }
 
