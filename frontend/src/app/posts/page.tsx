@@ -12,8 +12,8 @@ export default async function Posts() {
         </p>
       </div>
       <ul>
-        {posts.map((post, index) => (
-          <li key={index}>
+        {posts.map(post => (
+          <li key={post.id}>
             <Link href={`/posts/${post.id}`}>{post.title}</Link>
           </li>
         ))}

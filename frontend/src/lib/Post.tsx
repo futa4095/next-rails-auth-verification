@@ -17,18 +17,19 @@ export async function getPosts(): Promise<Post[]> {
 }
 
 export async function getPost(id: number): Promise<Post> {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + `/api/posts/${id}`);
+  const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + `/api/posts/${id}`, { cache: 'no-store' });
 
   if (res.status === 404) {
+    console.log(404)
     notFound();
   }
 
   if (!res.ok) {
+    console.log('Error1!!!!')
     throw new Error("Failed to fetch post");
   }
-
-  const data = await res.json();
-  return data;
+  console.log('res.ok')
+  return res.json();
 }
 
 export async function createPost(post: Post): Promise<void> {
@@ -58,8 +59,8 @@ export async function updatePost(post: Post) {
     throw new Error("Failed to update post");
   }
 }
-export async function deletePost(id: number) {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + `/api/posts/${id}`, {
+export async function deletePost(post: Post) {
+  const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + `/api/posts/${post.id}`, {
     method: "DELETE",
   });
 

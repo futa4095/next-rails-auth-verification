@@ -1,21 +1,20 @@
-'use client';
-
 import { deletePost, getPost, Post } from "@/lib/Post";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { notFound, useRouter } from "next/navigation";
+import DeleteButton from "./delete-button";
 
 export default async function ShowPost({
   params,
 }: {
   params: { id: number };
 }) {
-  const router = useRouter();
-  const handleDelete = async () => {
-    await deletePost(params.id);
-    router.push("/posts")
-  }
-
+  console.log('show post')
   const post = await getPost(params.id);
+  if (!post) {
+    console.log('not post')
+    notFound()
+  }
+  console.log('show post 2')
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -26,7 +25,7 @@ export default async function ShowPost({
       <p>{post.title}</p>
       <p>{post.body}</p>
       <Link href={`/posts/${params.id}/edit`}>edit</Link>
-      <button onClick={handleDelete}>delete</button>
+      <DeleteButton post={post} />
     </main>
   )
 }

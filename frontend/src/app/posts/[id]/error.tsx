@@ -8,14 +8,14 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
-  console.log('error.tsx top')
-  // useEffect(() => {
-  //   console.error(error);
-  // }, [error])
+  console.log("error.tsx")
+  useEffect(() => {
+    console.error(error);
+  }, [error])
 
   return (
     <div>
-      <h2>Something went wrong!</h2>
+      <h2>Something went wrong!!!</h2>
       <button onClick={() => reset()}>
         Try again
       </button>

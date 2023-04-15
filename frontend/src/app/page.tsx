@@ -1,6 +1,9 @@
 import Link from 'next/link'
+import Hello from './components/hello'
+import { notFound } from 'next/navigation'
 
 export default function Home() {
+  // notFound();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -8,6 +11,7 @@ export default function Home() {
           トップページ
         </p>
       </div>
+      <Hello name='aaaadfs' />
     </main>
   )
 }
