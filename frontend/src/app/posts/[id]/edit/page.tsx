@@ -1,14 +1,15 @@
 'use client'
 
-import { startTransition, useState } from "react";
+import { startTransition } from "react";
 import { useRouter } from 'next/navigation';
 import { getPost, updatePost, Post } from "@/lib/Post";
+import { PostForm } from "../../components/PostForm";
 
 export default async function EditPost({ params }: { params: { id: number } }) {
-  // console.log(params);
   const router = useRouter();
   const post = await getPost(params.id);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, post: Post) => {
+    const data = Object.fromEntries(new FormData(e.currentTarget))
     e.preventDefault();
     await updatePost(post);
     router.push("/posts")
@@ -24,22 +25,5 @@ export default async function EditPost({ params }: { params: { id: number } }) {
         <PostForm handleSubmit={handleSubmit} post={post} />
       </div>
     </main>
-  )
-}
-
-type PostFormProps = {
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>,
-  post: Post
-}
-
-function PostForm({ handleSubmit, post }: PostFormProps) {
-  const [title, setTitle] = useState(post.title)
-  const [body, setBody] = useState(post.body)
-  return (
-    <form onSubmit={(e) => { handleSubmit(e, { id: post.id, title, body }) }}>
-      <input type="text" name="title" placeholder="title" onChange={(e) => setTitle(e.target.value)} value={title} />
-      <textarea name="body" placeholder="body" onChange={(e) => setBody(e.target.value)} value={body}></textarea>
-      <button type="submit">update</button>
-    </form>
   )
 }

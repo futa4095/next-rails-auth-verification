@@ -16,7 +16,7 @@ export async function getPosts(): Promise<Post[]> {
   return res.json();
 }
 
-export async function getPost(id: number): Promise<Post>{
+export async function getPost(id: number): Promise<Post> {
   const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + `/api/posts/${id}`);
 
   if (res.status === 404) {
@@ -31,7 +31,7 @@ export async function getPost(id: number): Promise<Post>{
   return data;
 }
 
-export async function createPost({ post }: { post: Post; }): Promise<void> {
+export async function createPost(post: Post): Promise<void> {
   const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/api/posts", {
     method: "POST",
     headers: {

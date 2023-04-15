@@ -2,15 +2,15 @@
 
 import { startTransition, useState } from "react";
 import { useRouter } from 'next/navigation';
-import { createPost } from "@/lib/Post";
+import { Post, createPost } from "@/lib/Post";
+import { PostForm } from "../components/PostForm";
 
 export default function CreatePost() {
   const router = useRouter();
-  const [title, setTitle] = useState("")
-  const [body, setBody] = useState("")
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const post = { title: "", body: "" };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, post: Post) => {
     e.preventDefault();
-    await createPost({ post: { title, body } });
+    await createPost(post);
     router.push("/posts")
     startTransition(() => router.refresh())
   }
@@ -21,11 +21,7 @@ export default function CreatePost() {
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           create post
         </p>
-        <form onSubmit={handleSubmit}>
-          <input type="text" name="title" placeholder="title" onChange={(e) => setTitle(e.target.value)} />
-          <textarea name="body" placeholder="body" onChange={(e) => setBody(e.target.value)}></textarea>
-          <button type="submit">save</button>
-        </form>
+        <PostForm handleSubmit={handleSubmit} post={post} />
       </div>
     </main>
   )
