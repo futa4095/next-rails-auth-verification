@@ -3,6 +3,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  skipMiddlewareUrlNormalize: true,
 }
 
 module.exports = nextConfig

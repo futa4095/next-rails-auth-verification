@@ -9,7 +9,7 @@ export default function SignUpForm() {
   const [password, setPassword] = useState("testpassword")
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth(), email, password);
     const user = userCredential.user;
     console.log(user);
   }
