@@ -9,6 +9,8 @@ export default function Home() {
           トップページ
         </p>
       </div>
+      <Link href="/sign_in">ログイン</Link>
+      <Link href="/sign_up">新規登録</Link>
       <Hello name='aaaadfs' />
       <Link href="/a">a</Link>
     </main>
