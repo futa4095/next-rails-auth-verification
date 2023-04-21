@@ -37,7 +37,7 @@ export async function createPost(post: Post): Promise<void> {
     },
     body: JSON.stringify(post),
   });
-
+  console.log('create!')
   if (!res.ok) {
     throw new Error("Failed to create post");
   }

@@ -1,7 +1,11 @@
 import { getPosts } from '@/lib/Post';
+import { createServerClient } from '@/lib/supabase-server';
 import Link from 'next/link'
 
 export default async function Posts() {
+  const supabase = createServerClient();
+  console.log(await supabase.auth.getSession())
+  console.log(await supabase.auth.getUser())
   const posts = await getPosts();
 
   return (
