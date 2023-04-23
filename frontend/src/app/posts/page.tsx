@@ -4,9 +4,9 @@ import Link from 'next/link'
 
 export default async function Posts() {
   const supabase = createServerClient();
-  console.log(await supabase.auth.getSession())
+  const { data: {session} } = await supabase.auth.getSession()
   console.log(await supabase.auth.getUser())
-  const posts = await getPosts();
+  const posts = await getPosts(session?.access_token ?? '');
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
