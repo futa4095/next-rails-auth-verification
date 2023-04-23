@@ -1,12 +1,15 @@
-import { getPosts } from '@/lib/Post';
-import { createServerClient } from '@/lib/supabase-server';
-import Link from 'next/link'
+import { getPosts } from "@/lib/Post";
+import { createServerClient } from "@/lib/supabase-server";
+import Link from "next/link";
 
 export default async function Posts() {
   const supabase = createServerClient();
-  const { data: {session} } = await supabase.auth.getSession()
-  console.log(await supabase.auth.getUser())
-  const posts = await getPosts(session?.access_token ?? '');
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  console.log(await supabase.auth.getUser());
+  supabase.auth.updateUser({ data: { hello: "world!" } });
+  const posts = await getPosts(session?.access_token ?? "");
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -16,12 +19,12 @@ export default async function Posts() {
         </p>
       </div>
       <ul>
-        {posts.map(post => (
+        {posts.map((post) => (
           <li key={post.id}>
             <Link href={`/posts/${post.id}`}>{post.title}</Link>
           </li>
         ))}
       </ul>
     </main>
-  )
+  );
 }
