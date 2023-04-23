@@ -42,11 +42,12 @@ export async function getPost(id: number, token: string): Promise<Post> {
   return res.json();
 }
 
-export async function createPost(post: Post): Promise<void> {
+export async function createPost(post: Post, token: string): Promise<void> {
   const res = await fetch(process.env.NEXT_PUBLIC_API_BASE_URL + "/api/posts", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(post),
   });
@@ -56,13 +57,14 @@ export async function createPost(post: Post): Promise<void> {
   }
 }
 
-export async function updatePost(post: Post) {
+export async function updatePost(post: Post, token: string) {
   const res = await fetch(
     process.env.NEXT_PUBLIC_API_BASE_URL + `/api/posts/${post.id}`,
     {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ title: post.title, body: post.body }),
     }
@@ -72,11 +74,14 @@ export async function updatePost(post: Post) {
     throw new Error("Failed to update post");
   }
 }
-export async function deletePost(post: Post) {
+export async function deletePost(post: Post, token: string) {
   const res = await fetch(
     process.env.NEXT_PUBLIC_API_BASE_URL + `/api/posts/${post.id}`,
     {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
 

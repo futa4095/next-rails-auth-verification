@@ -1,8 +1,14 @@
 import { getPost } from "@/lib/Post";
 import EditForm from "./edit-form";
+import { createServerClient } from "@/lib/supabase-server";
 
 export default async function EditPost({ params }: { params: { id: number } }) {
-  const post = await getPost(params.id);
+  const supabase = createServerClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const token = session?.access_token ?? "";
+  const post = await getPost(params.id, token);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -13,5 +19,5 @@ export default async function EditPost({ params }: { params: { id: number } }) {
         <EditForm post={post} />
       </div>
     </main>
-  )
+  );
 }
