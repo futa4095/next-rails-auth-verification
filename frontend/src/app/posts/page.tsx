@@ -8,7 +8,7 @@ export default async function Posts() {
     data: { session },
   } = await supabase.auth.getSession();
   console.log(await supabase.auth.getUser());
-  supabase.auth.updateUser({ data: { hello: "world!" } });
+  // supabase.auth.updateUser({ data: { hello: "world!" } });
   const posts = await getPosts(session?.access_token ?? "");
 
   return (
