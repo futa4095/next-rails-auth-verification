@@ -12,10 +12,10 @@ export async function GET(request: Request) {
     },
   });
   const Bucket = `${process.env.BUCKET ?? ""}-${process.env.NODE_ENV}`;
-  const command = new PutObjectCommand({ Bucket, Key: "image/test.txt" });
-  const signedUrl = await getSignedUrl(client, command, { expiresIn: 3600 });
+  const command = new PutObjectCommand({ Bucket, Key: "image/test.png" });
+  const signedUrl = await getSignedUrl(client, command, { expiresIn: 600 });
 
-  const getCommand = new GetObjectCommand({ Bucket, Key: "image/test.txt" });
-  const signedUrlRead = await getSignedUrl(client, getCommand, { expiresIn: 3600 });
+  const getCommand = new GetObjectCommand({ Bucket, Key: "image/test.png" });
+  const signedUrlRead = await getSignedUrl(client, getCommand, { expiresIn: 600 });
   return NextResponse.json({ signedUrl, signedUrlRead });
 }
