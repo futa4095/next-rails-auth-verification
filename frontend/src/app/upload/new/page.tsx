@@ -1,3 +1,4 @@
+import AudioUploadForm from "./AudioUploadForm";
 import UploadForm from "./UploadForm";
 
 export default function UploadNewPage() {
@@ -5,6 +6,7 @@ export default function UploadNewPage() {
     <>
       <div>UploadNewPage</div>
       <UploadForm />
+      <AudioUploadForm />
     </>
   );
 }
