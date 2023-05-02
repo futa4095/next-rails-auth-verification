@@ -1,7 +1,5 @@
 "use client";
 
-import { sign } from "crypto";
-import Image from "next/image";
 import { useState } from "react";
 
 export default function UploadForm() {
@@ -38,9 +36,6 @@ export default function UploadForm() {
       formData.append("file", image);
 
       const { signedUrl } = await (await fetch("/api/signedUrl")).json();
-      console.info(signedUrl)
-      // const url =
-      //   "https://next-rails-development.storage.googleapis.com/image/test.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=GOOG1ER4C7WDW35VCIXTANFROTY4RTWSIGQIF6IQYZZDM3P7ZROPA5LMMB4XI%2F20230430%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20230430T093809Z&X-Amz-Expires=600&X-Amz-Signature=0c685902df84b256cfe6cd6de0c541fc9ec41a766de422434f7206e69ec5cb8a&X-Amz-SignedHeaders=host&x-id=PutObject";
       const res = await fetch(signedUrl, {
         method: "PUT",
         body: image,
