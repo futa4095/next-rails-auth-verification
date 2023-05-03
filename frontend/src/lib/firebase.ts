@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAIKrZd-MZC_nafgEDJZxnUA65uY4GbZgk",
+  apiKey: "",
   authDomain: "next-rails-proto5959.firebaseapp.com",
   projectId: "next-rails-proto5959",
   storageBucket: "next-rails-proto5959.appspot.com",
